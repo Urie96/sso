@@ -5,6 +5,6 @@ services:
     build: .
     ports:
       - "7003:3000"
-    container_name: "hackbook-front"
+    container_name: "sso"
     environment:
       - PORT=3000
