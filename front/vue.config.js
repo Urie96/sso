@@ -7,7 +7,7 @@ module.exports = {
       return {
         plugins: [
           new CompressionPlugin({
-            test: /\.(js|css|woff|tff)$/,
+            test: /\.(js|css)$/,
             threshold: 1024 * 10,
             // deleteOriginalAssets: true,
           }),
