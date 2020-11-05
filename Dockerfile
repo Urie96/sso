@@ -12,5 +12,5 @@ RUN npm config set registry https://registry.npm.taobao.org
 COPY package*.json ./
 RUN npm ci --only=production
 COPY . .
-COPY --from=builder /tmp/dist ./
+COPY --from=builder /tmp/dist ./dist
 CMD [ "npm","start" ]
