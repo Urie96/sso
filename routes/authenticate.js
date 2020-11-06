@@ -41,7 +41,7 @@ module.exports.auth = (ctx) => {
     redirectURL.searchParams.set('code', code);
     ctx.redirect(redirectURL.href);
   } else {
-    ctx.cookies.set('ssoLoginReturnTo', ctx.URL.href);
+    ctx.cookies.set('ssoLoginReturnTo', req.path + req.search);
     ctx.redirect('/');
   }
 };
