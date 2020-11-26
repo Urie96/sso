@@ -1,151 +1,29 @@
 <template>
-  <div id="app">
-    <el-card shadow="always">
-      <div slot="header">Welcome</div>
-      <div style="padding-top: 10px"></div>
-      <el-form :model="ruleForm" :rules="rules" ref="ruleForm">
-        <el-form-item label="" prop="phone">
-          <el-input
-            v-model="ruleForm.phone"
-            placeholder="Phone"
-            prefix-icon="el-icon-mobile-phone"
-            autofocus
-            clearable
-          >
-          </el-input>
-        </el-form-item>
-        <el-form-item label="" prop="pass">
-          <el-input
-            clearable
-            show-password
-            type="password"
-            v-model="ruleForm.pass"
-            placeholder="Password"
-            prefix-icon="el-icon-lock"
-            @keyup.enter.native="submitForm"
-          ></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="submitForm" style="width: 100%">
-            Login
-          </el-button>
-        </el-form-item>
-      </el-form>
-    </el-card>
+  <div id="wrapper">
+    <section id="main">
+      <Login />
+    </section>
+    <footer id="footer">
+      <ul class="copyright">
+        <li>&copy; Jane Doe</li>
+        <li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+      </ul>
+    </footer>
   </div>
 </template>
 <script>
-import { Message } from 'element-ui';
-
-function errMsg(message) {
-  Message({
-    message,
-    type: 'error',
-    center: true,
-  });
-}
+import './assets/css/main.css';
+import Login from './Login.vue';
 
 export default {
-  data() {
-    const validatePhone = (rule, value, cb) => {
-      if (value.trim() === '') {
-        cb(new Error('Please enter phone number'));
-        return;
-      }
-      const reg = /^[1][3,4,5,7,8][0-9]{9}$/;
-      if (!reg.test(value)) {
-        cb(new Error('Phone number format is incorrect'));
-        return;
-      }
-      cb();
-    };
-    const validatePass = (rule, value, cb) => {
-      if (value === '') {
-        cb(new Error('Please enter password'));
-        return;
-      }
-      if (value.length < 6 || value.length > 16) {
-        cb(new Error('Password length must between 6 to 16'));
-        return;
-      }
-      this.$refs.ruleForm.validateField('phone');
-      cb();
-    };
-    return {
-      ruleForm: {
-        phone: '',
-        pass: '',
-      },
-      rules: {
-        phone: [{ validator: validatePhone, trigger: 'blur' }],
-        pass: [{ validator: validatePass, trigger: 'blur' }],
-      },
-    };
-  },
-  methods: {
-    submitForm() {
-      this.$refs.ruleForm.validate((valid) => {
-        if (valid) {
-          const data = {
-            phone: this.ruleForm.phone,
-            password: this.ruleForm.pass,
-          };
-          fetch('/login', {
-            body: JSON.stringify(data),
-            headers: {
-              'content-type': 'application/json',
-            },
-            method: 'POST',
-          })
-            .then((res) => res.json())
-            .then((res) => {
-              if (res.error) {
-                errMsg(res.error);
-              } else if (res.returnTo) {
-                location.href = res.returnTo;
-              }
-            })
-            .catch((error) => {
-              errMsg(error.message);
-            });
-        }
-      });
-    },
-  },
+  components: { Login },
 };
 </script>
-
 <style>
-.el-message {
-  min-width: 0;
-  max-width: 400px;
-  width: 80%;
+#main {
+  background-color: rgba(255, 255, 255, 0.85);
 }
-
-#app {
-  font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB',
-    'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 15px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  font-weight: 500;
-  font-size: 20px;
-  background-color: #f6f8fa;
-}
-
-#app > .el-card {
-  width: 100%;
-  max-width: 400px;
+input {
+  background-color: transparent !important;
 }
 </style>
