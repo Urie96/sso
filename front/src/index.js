@@ -1,51 +1,26 @@
-<template>
-  <div id="vue-main">
-    <h1>LOGIN</h1>
-    <hr style="margin-top: 0" />
-    <div style="padding-top: 10px"></div>
-    <el-form :model="ruleForm" :rules="rules" ref="ruleForm">
-      <el-form-item label="" prop="phone">
-        <el-input
-          v-model="ruleForm.phone"
-          placeholder="Phone"
-          prefix-icon="el-icon-mobile-phone"
-          autofocus
-          clearable
-        >
-        </el-input>
-      </el-form-item>
-      <el-form-item label="" prop="pass">
-        <el-input
-          clearable
-          show-password
-          type="password"
-          v-model="ruleForm.pass"
-          placeholder="Password"
-          prefix-icon="el-icon-lock"
-          @keyup.enter.native="submitForm"
-        ></el-input>
-      </el-form-item>
-      <br />
-      <ul class="actions special">
-        <li>
-          <div class="button" @click="submitForm">Sign In</div>
-        </li>
-      </ul>
-    </el-form>
-  </div>
-</template>
-<script>
-import { Message } from 'element-ui';
+import './css/main.css';
+import './css/el.css';
 
+if ('addEventListener' in window) {
+  window.addEventListener('load', function () {
+    document.body.className = document.body.className.replace(
+      /\bis-preload\b/,
+      ''
+    );
+  });
+  document.body.className += navigator.userAgent.match(/(MSIE|rv:11\.0)/)
+    ? ' is-ie'
+    : '';
+}
 function errMsg(message) {
-  Message({
+  ELEMENT.Message({
     message,
     type: 'error',
     center: true,
   });
 }
-
-export default {
+var app = new Vue({
+  el: '#wrapper',
   data() {
     const validatePhone = (rule, value, cb) => {
       if (value.trim() === '') {
@@ -112,33 +87,4 @@ export default {
       });
     },
   },
-};
-</script>
-
-<style>
-.el-message {
-  letter-spacing: 0;
-  min-width: 0;
-  max-width: 400px;
-  width: 80%;
-}
-
-.el-card {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  padding: 15px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  font-weight: 500;
-  font-size: 20px;
-  background-color: #f6f8fa;
-  max-width: 400px;
-}
-.el-form-item__error {
-  letter-spacing: 0;
-}
-</style>
+});
