@@ -1,15 +1,15 @@
-const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
+const path = require('path');
 
 /** @type {import('webpack').Configuration} */
 module.exports = {
   mode: 'production',
   entry: './src/index.js',
   output: {
-    filename: 'bundle.[hash:8].js',
-    path: path.resolve(__dirname, '../dist'),
+    filename: 'bundle.[chunkhash].js',
+    path: path.resolve(__dirname, './dist'),
   },
   module: {
     rules: [
@@ -32,6 +32,8 @@ module.exports = {
     // new HtmlWebpackPlugin({
     //   title: 'Page Not Found',
     //   template: './src/html/404.html',
+    //   filename: '404.html',
+    //   chunks: [],
     // }),
     new CompressionPlugin({
       test: /\.(js|css|html)$/,
