@@ -1,0 +1,43 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/element-plus@1.0.1-beta.8/lib/theme-chalk/index.css">
+
+<div id="wrapper">
+    <section id="main">
+        <div id="vue-main">
+            <h1>LOGIN</h1>
+            <hr style="margin-top: 0" />
+            <div style="padding-top: 10px"></div>
+            <el-form :model="ruleForm" :rules="rules" ref="ruleForm">
+                <el-form-item label="" prop="phone">
+                    <el-input v-model="ruleForm.phone" placeholder="Phone" prefix-icon="el-icon-mobile-phone" autofocus
+                        clearable>
+                    </el-input>
+                </el-form-item>
+                <el-form-item label="" prop="pass">
+                    <el-input clearable show-password type="password" v-model="ruleForm.pass" placeholder="Password"
+                        prefix-icon="el-icon-lock" @keyup.enter.native="submitForm"></el-input>
+                </el-form-item>
+                <br />
+                <ul class="actions special">
+                    <li>
+                        <div class="button" @click="submitForm">Sign In</div>
+                    </li>
+                </ul>
+            </el-form>
+        </div>
+    </section>
+    <footer id="footer">
+        <ul class="copyright">
+        </ul>
+    </footer>
+</div>
+<script>
+    document.body.className = 'is-preload'
+    if ('addEventListener' in window) {
+        window.addEventListener('load', function () {
+            document.body.className = ''
+        });
+        document.body.className += navigator.userAgent.match(/(MSIE|rv:11\.0)/)
+            ? ' is-ie'
+            : '';
+    }
+</script>

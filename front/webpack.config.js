@@ -6,10 +6,17 @@ const path = require('path');
 /** @type {import('webpack').Configuration} */
 module.exports = {
   mode: 'production',
-  entry: './src/index.js',
+  entry: {
+    login: './src/js/index.js',
+  },
   output: {
     filename: 'bundle.[chunkhash].js',
     path: path.resolve(__dirname, './dist'),
+  },
+  externalsType: 'script',
+  externals: {
+    vue: ['https://cdn.jsdelivr.net/npm/vue@3.0.4/dist/vue.global.prod.js', 'Vue'],
+    'element-ui': ['https://cdn.jsdelivr.net/npm/element-plus@1.0.1-beta.8/lib/index.full.js', 'ElementPlus'],
   },
   module: {
     rules: [
@@ -21,13 +28,17 @@ module.exports = {
         test: /\.(png|svg|jpg|gif)$/,
         use: ['file-loader'],
       },
+      {
+        test: /login\.html$/,
+        use: ['./html-loader.js']
+      }
     ],
   },
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       title: 'Login',
-      template: './src/html/index.html',
+      chunks: ['login'],
     }),
     new HtmlWebpackPlugin({
       title: 'Page Not Found',

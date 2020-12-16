@@ -1,26 +1,19 @@
-import './css/main.css';
-import './css/el.css';
+import 'vue';
+import ElementPlus from 'element-ui';
+import '../css/main.css';
+import '../css/el.css';
+import elem from '../html/login.html'
 
-if ('addEventListener' in window) {
-  window.addEventListener('load', function () {
-    document.body.className = document.body.className.replace(
-      /\bis-preload\b/,
-      ''
-    );
-  });
-  document.body.className += navigator.userAgent.match(/(MSIE|rv:11\.0)/)
-    ? ' is-ie'
-    : '';
-}
+elem.appendTo(document.body)
+
 function errMsg(message) {
-  ELEMENT.Message({
+  window.ElementPlus.ElMessage({
     message,
     type: 'error',
     center: true,
   });
 }
-var app = new Vue({
-  el: '#wrapper',
+const App = {
   data() {
     const validatePhone = (rule, value, cb) => {
       if (value.trim() === '') {
@@ -87,4 +80,7 @@ var app = new Vue({
       });
     },
   },
-});
+}
+const app = Vue.createApp(App);
+app.use(ElementPlus);
+app.mount("#wrapper");
